@@ -14,9 +14,9 @@ void DebitTask(void *param) {
    // Serial.println("debitTask: Executing on core ");
    
     for(;;) {
-        // updateDebitCount();
-        // Serial.print("frekuensi_aliran: ");
-        Serial.println(frekuensi_aliran);
+        // printDebitCountTemporary();
+        // Serial.print("debitFrequency: ");
+        Serial.println(debitFrequency);
         vTaskDelay(5000 / portTICK_PERIOD_MS); // Delay between loops to reset watchdog timer portMAX_DELAY
     }
    vTaskDelete(NULL);

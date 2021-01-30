@@ -2,11 +2,12 @@
 void setupFlowSensor();
 void interruptFlowSensor();
 void interruptFlowSensorDummy();
-void updateDebitCount();
-void reportDebitCount();
+void printDebitCountTemporary();
+void reportDebitCountTemporary();
 void publishMqtt(String, String);
-void resetDebitCount();
-void printDebitCount();
+void resetDebitFrequency();
+void updateDebitCountTemporary();
+void updateEepromData();
 
 // ***** FLOW SENSOR ***** 
 #define FLOWSENSOR_DUMMY_INTERVAL 1
@@ -28,37 +29,57 @@ void setupFlowSensor()
   //setupTasks();
 }
 
+void setupEeprom() {
+  #ifdef EEPROM_RESET_WARNING
+    DebitTotalEeprom = 0.00f;  //Variable to store in EEPROM.
+    EEPROM.put(eepromAddress, DebitTotalEeprom);
+    Serial.print("Put Eeprom value: ");
+    Serial.println(DebitTotalEeprom);
+  #else
+    EEPROM.get(eepromAddress, DebitTotalEeprom);
+    Serial.print("Get Eeprom value: ");
+    Serial.println(DebitTotalEeprom);
+  #endif
+}
+
 void interruptFlowSensor()
 {
-  frekuensi_aliran++;
+  debitFrequency++;
 }
 
 void interruptFlowSensorDummy() {
   int randomAdd = random(0,10);
-  frekuensi_aliran += randomAdd;
+  debitFrequency += randomAdd;
 }
 
-void updateDebitCount()
+void updateDebitCountTemporary() {
+  DebitCountTemporary = (debitFrequency/7.5)*K/60.0/DEBIT_PRINT_INTERVAL; //L/s
+}
+
+void printDebitCountTemporary()
 {
-    DebitAir = (frekuensi_aliran/7.5)*K/60.0/DEBIT_OOUNT_INTERVAL; //L/s
+  updateDebitCountTemporary();
 
-    // Print Debit Information
-    printDebitCount();
-}
-
-void printDebitCount() {
-  Serial.print("frekuensi_aliran: ");
-  Serial.println(frekuensi_aliran);
+  // Prints Debit Information
+  Serial.print("debitFrequency: ");
+  Serial.println(debitFrequency);
   Serial.print("Debit Air: ");
-  Serial.print(DebitAir);
+  Serial.print(DebitCountTemporary);
   Serial.println(" L/s");
 }
 
-void reportDebitCount() {
+void reportDebitCountTemporary() {
+  updateDebitCountTemporary();
+
   String topic = "flow_sensor";
-  String message = String(DebitAir);
+  String message = String(DebitCountTemporary);
   publishMqtt(topic,message);
-  resetDebitCount();
+
+  // Update total sum in eeprom
+  updateEepromData();
+
+  // Reset DebitCount
+  resetDebitFrequency();
 }
 
 void publishMqtt(String topic, String message) {
@@ -67,7 +88,17 @@ void publishMqtt(String topic, String message) {
     EspSerial.println("pub:" + topicFull + ":" + message);
 }
 
-void resetDebitCount() {
+void resetDebitFrequency() {
   Serial.println("Debit Count Reset!");
-  frekuensi_aliran = 0;
+  debitFrequency = 0;
+}
+
+// EEPROM
+void updateEepromData() {
+  DebitTotalEeprom += DebitCountTemporary;
+
+  // put to eeprom
+  EEPROM.put(eepromAddress, DebitTotalEeprom);
+  Serial.print("Put Eeprom value: ");
+  Serial.println(DebitTotalEeprom);
 }

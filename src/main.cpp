@@ -2,7 +2,7 @@
 //Tiap jam akan disimpan data berupa jumlah volume air pada jam tersebut sehingga
 //dapat diketahui pengeluaran terbesar pada jam-jam berapa saja
 
-// #include <EEPROM.h>
+#include <EEPROM.h>
 #include <Time.h>
 #include <TimeAlarms.h>
 // #include <ds3231.h>
@@ -26,14 +26,24 @@ SoftwareSerial sim(10, 9);
 String  _buffer;
 String  number = dest_phone_no;
 
+// EEPROM
+// #define EEPROM_RESET_WARNING // this will override eeprom data back to 0
+const int eepromAddress = 0;   //Location we want the data to be put.
+float DebitTotalEeprom;
+
 // FLOW METER SENSOR
+// #define FLOWSENSOR_DUMMY_ON
 #define FLOWSENSOR_PIN 2
-#define FLOWSENSOR_DUMMY_ON
-const long DEBIT_OOUNT_INTERVAL = 5; // penghitungan data tiap sekian detik
-const long DEBIT_REPORT_INTERVAL = 15; // pengiriman data ke MQTT Broker tiap sekian detik
-float K = 2.6; // Konstanta flow sensor
-float DebitAir = 0.0;
-volatile unsigned long frekuensi_aliran = 0;
+#ifdef debug_mode
+  const long DEBIT_PRINT_INTERVAL = 5; // penghitungan data tiap sekian detik
+  const long DEBIT_REPORT_INTERVAL = 15; // pengiriman data ke MQTT Broker tiap sekian detik
+#else
+  const long DEBIT_PRINT_INTERVAL = 30; // penghitungan data tiap sekian detik
+  const long DEBIT_REPORT_INTERVAL = 1800; // pengiriman data ke MQTT Broker tiap sekian detik
+#endif
+float K = 2.6f; // Konstanta flow sensor
+float DebitCountTemporary = 0.00f;
+volatile unsigned long debitFrequency = 0;
 
 // RTC
 // struct ts t;
@@ -61,6 +71,7 @@ void setup()
 {
   // ******* Setup_Start ******* 
   setupSerial();
+  setupEeprom();
   setupSim(); // [SALMAN] cek ini
   // setupRTC(); // abaikan aja ini
   setupFlowSensor(); // abaikan aja ini
@@ -68,8 +79,8 @@ void setup()
   // ******* Setup_End *******
 
   setTime(22,15,30,23,1,21); // set initial time, can be fixed later
-  Alarm.timerRepeat(DEBIT_OOUNT_INTERVAL, updateDebitCount); // turn on repeater to count debit
-  Alarm.timerRepeat(DEBIT_REPORT_INTERVAL, reportDebitCount); // turn on repeater to publish debit to MQTT Broker
+  Alarm.timerRepeat(DEBIT_PRINT_INTERVAL, printDebitCountTemporary); // turn on repeater to count debit
+  Alarm.timerRepeat(DEBIT_REPORT_INTERVAL, reportDebitCountTemporary); // turn on repeater to publish debit to MQTT Broker
   
   Serial.println("Setup: Initialization done.");
 }
