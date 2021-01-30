@@ -63,6 +63,7 @@ void reportDebitCount() {
 
 void publishMqtt(String topic, String message) {
     String topicFull = "waterbox/W0001/" + topic;
+    Serial.println("pub:" + topicFull + ":" + message);
     EspSerial.println("pub:" + topicFull + ":" + message);
 }
 

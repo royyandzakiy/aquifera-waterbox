@@ -14,9 +14,9 @@
 
 //======================================================================//
 
-// GLOBALS
+// GLOBAL VARIABLES
 // Serial
-SoftwareSerial EspSerial(6, 5);
+SoftwareSerial EspSerial(5, 6);
 
 // SIM MODULE
 SoftwareSerial sim(10, 9);
@@ -78,7 +78,6 @@ void loop()
 {
   echo();
   listenEsp();
-  // digitalClockDisplay(); // display current time
   Alarm.delay(1); // wait one second between clock display. MUST BE TURNED ON TO USE Alarm::timerRepeater
 }
 
