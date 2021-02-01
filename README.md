@@ -2,6 +2,8 @@
 
 The official firmware for Aquifera Waterbox. Made to count the debit of water flow from Aquifera watersystems, then send the data through an ESP32 as internet gateway.
 
+Arduino Nano using AICHI flow sensor connected to an ESP32 through UART.
+
 In this version, currently uses a ESP32 connected through UART on Pin RX 6, Pin TX 5. The ESP32 runs the [esp32-mqtt-wifi](https://github.com/royyandzakiy/esp32-mqtt-wifi).
 
 ## How To:
