@@ -44,9 +44,9 @@ void processListenEsp(String str) {
   } else if (str=="get_debit_count") {
     // send current debit count
     Serial.println("get_debit_count command engegaed");
-  } else if (str=="get_debit_data") {
-    // send debit data in sd card
-    Serial.println("get_debit_data command engegaed");
+  } else if (str=="get_debit_eeprom") {
+    // send debit data in eeprom
+    Serial.println("get_debit_eeprom command engegaed");
   }
 }
 

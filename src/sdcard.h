@@ -1,7 +1,7 @@
 // SD Card
 void setupSDCard();
 void resetEeprom();
-void printDebitCount();
+void printDebitCountTemporary();
 void testSDCard();
 
 // ***** SD CARD ***** 
