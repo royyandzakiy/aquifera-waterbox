@@ -1,7 +1,3 @@
-//Volume air akan dihitung setiap 5 detik dan dijumlahkan secara langsung
-//Tiap jam akan disimpan data berupa jumlah volume air pada jam tersebut sehingga
-//dapat diketahui pengeluaran terbesar pada jam-jam berapa saja
-
 #include <EEPROM.h>
 #include <Time.h>
 #include <TimeAlarms.h>
@@ -56,7 +52,7 @@ volatile unsigned long debitFrequency = 0;
 
 //======================================================================//
 
-// Prototypes
+// Headers
 #include "serial.h"
 #include "flowsensor.h"
 // #include "rtc.h"
