@@ -26,6 +26,6 @@ The current implemented hardware is still in a very rough first MVP version. The
 
 ### a note from Royyan
 
-a :droplet: Aquifera Project
+an :droplet: Aquifera Project
 
 Use this as you wish! Happy making! :octocat:
