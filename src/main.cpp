@@ -1,8 +1,8 @@
 // ***** main.cpp *****
 // Libraries
 
-#include <SPI.h>
 #include <SoftwareSerial.h>
+#include <SPI.h>
 #include <Time.h>
 #include <TimeAlarms.h>
 
