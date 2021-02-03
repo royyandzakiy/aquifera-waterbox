@@ -1,4 +1,5 @@
 // ***** rtc.h ***** 
+// *** THIS FILE IS NOT YET USED ***
 
 #ifndef RTC_H
 #define RTC_H
@@ -13,7 +14,6 @@ struct ts t;
 // Prototypes
 
 void setupRTC();
-void setTimeRTC();
 void testRTC();
 
 //======================================================================//

@@ -1,4 +1,5 @@
 // ***** sdcard.h *****
+// *** THIS FILE IS NOT YET USED ***
 
 #ifndef SDCARD_H
 #define SDCARD_H
@@ -11,8 +12,6 @@ File myFile;
 // Prototypes
 
 void setupSDCard();
-void resetEeprom();
-void printdebitCountTemporary();
 void testSDCard();
 
 //======================================================================//

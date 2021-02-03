@@ -1,7 +1,10 @@
 // ***** main.cpp *****
+// Libraries
 
 #include <SPI.h>
 #include <SoftwareSerial.h>
+#include <Time.h>
+#include <TimeAlarms.h>
 
 //======================================================================//
 // Global Variables
@@ -17,7 +20,7 @@
 #include "serial.h"
 #include "flowsensor.h"
 #include "sim.h"
-#include "alarms.h"
+// #include "alarms.h"
 // #include "rtc.h"
 // #include "sdcard.h"
 
