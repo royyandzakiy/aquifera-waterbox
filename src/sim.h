@@ -1,8 +1,21 @@
-// SIM
+// ***** sim.h *****
+
+#ifndef SIM_H
+#define SIM_H
+
+// SIM MODULE
+SoftwareSerial sim(10, 9);
+String  _buffer;
+String  number = dest_phone_no;
+
+//======================================================================//
+// Prototypes
 void setupSim();
 void testSim();
 
-// ***** SIM ***** 
+//======================================================================//
+// Functions
+
 // Setup SIM
 void setupSim() {
  Serial.println("Setup: Initializing SIM...");
@@ -17,3 +30,5 @@ void testSim() {
  // send GPRS here
  // ...still nothing
 }
+
+#endif // SIM_H

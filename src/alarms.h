@@ -1,8 +1,23 @@
+// ***** alarms.h ***** 
+
+#ifndef ALARMS_H
+#define ALARMS_H
+
+#include <Time.h>
+#include <TimeAlarms.h>
+
+// AlarmId id;
+
+//======================================================================//
+// Prototypes
+
 void testAlarms();
 void digitalClockDisplay();
 void printDigits(int);
 
-// ***** TIME ***** 
+//======================================================================//
+// Functions
+
 void testAlarms() {
     void digitalClockDisplay();   
 }
@@ -21,3 +36,5 @@ void printDigits(int digits) {
    Serial.print('0');
  Serial.print(digits);
 }
+
+#endif // ALARMS_H

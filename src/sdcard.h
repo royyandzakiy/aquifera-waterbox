@@ -1,11 +1,23 @@
-// SD Card
+// ***** sdcard.h *****
+
+#ifndef SDCARD_H
+#define SDCARD_H
+
+#include <SD.h>
+
+File myFile;
+
+//======================================================================//
+// Prototypes
+
 void setupSDCard();
 void resetEeprom();
-void printDebitCountTemporary();
+void printdebitCountTemporary();
 void testSDCard();
 
-// ***** SD CARD ***** 
-// Setup SD Card
+//======================================================================//
+// Functions
+
 void setupSDCard() {
   Serial.println("Setup: Initializing SD Card...");
  
@@ -53,3 +65,5 @@ void testSDCard() {
   
   Serial.println("Setup: SD Card Done!");
 }
+
+#endif // SDCARD_H

@@ -1,9 +1,24 @@
+// ***** rtc.h ***** 
+
+#ifndef RTC_H
+#define RTC_H
+
+#include <ds3231.h>
+#include <Wire.h>
+
 // RTC
+struct ts t;
+
+//======================================================================//
+// Prototypes
+
 void setupRTC();
 void setTimeRTC();
 void testRTC();
 
-// ***** RTC ***** 
+//======================================================================//
+// Functions
+
 void setupRTC() {
  // initializes RTC
  Serial.println("Setup: Initializing RTC...");
@@ -41,3 +56,5 @@ void testRTC() {
  Serial.print(t.sec);
  Serial.println();  
 }
+
+#endif // RTC_H

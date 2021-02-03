@@ -1,11 +1,21 @@
-// Serial
+// ***** serial.h ****
+
+#ifndef SERIAL_H
+#define SERIAL_H
+
+SoftwareSerial EspSerial(5, 6);
+
+//======================================================================//
+// Prototypes
 void setupSerial();
 void echo();
 void listenEsp();
 void sendEsp(String);
 void processListenEsp(String);
 
-// ***** SERIAL ***** 
+//======================================================================//
+// Functions
+
 void echo() {
   if(Serial.available()) {
     String str = Serial.readStringUntil('\n');
@@ -61,3 +71,5 @@ void setupSerial() {
   while (!Serial);
   Serial.println("Setup: Initialize Serial...");
 }
+
+#endif // SERIAL_H

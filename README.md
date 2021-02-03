@@ -8,8 +8,7 @@ In this version, currently uses a ESP32 connected through UART on Pin RX 6, Pin 
 
 The current implemented hardware is still in a very rough first MVP version. There will be further developments by creating a proper PCB and housing.
 
-## How To:
-### Preparation:
+## Getting Started:
 
 - Install [VSCode](https://www.arduino.cc/en/main/software)
 - Install Platform IO Extension

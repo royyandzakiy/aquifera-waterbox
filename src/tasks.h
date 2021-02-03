@@ -1,8 +1,18 @@
+// ***** tasks.h *****
+#ifndef TASKS_H
+#define TASKS_H
+
+#include <Arduino_FreeRTOS.h>
+
+//======================================================================//
+// Prototypes
+
 void setupTasks();
 void DebitTask(void *);
 void BlinkTask(void *);
 
-// ***** FREE RTOS ***** 
+//======================================================================//
+// Functions
 
 void setupTasks() {
   xTaskCreate(DebitTask, "DebitTask", 2048, NULL, 1, NULL);
@@ -14,7 +24,7 @@ void DebitTask(void *param) {
    // Serial.println("debitTask: Executing on core ");
    
     for(;;) {
-        // printDebitCountTemporary();
+        // printdebitCountTemporary();
         // Serial.print("debitFrequency: ");
         Serial.println(debitFrequency);
         vTaskDelay(5000 / portTICK_PERIOD_MS); // Delay between loops to reset watchdog timer portMAX_DELAY
@@ -35,3 +45,5 @@ void BlinkTask(void *param) {
  }
    vTaskDelete(NULL);
 }
+
+#endif // TASKS_H
