@@ -20,9 +20,9 @@
 #include "serial.h"
 #include "flowsensor.h"
 #include "sim.h"
-// #include "alarms.h"
-// #include "rtc.h"
-// #include "sdcard.h"
+// #include "alarms.h" // *** THIS FILE IS NOT YET USED ***
+// #include "rtc.h" // *** THIS FILE IS NOT YET USED ***
+// #include "sdcard.h" // *** THIS FILE IS NOT YET USED ***
 
 //======================================================================//
 // Main
