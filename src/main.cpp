@@ -11,8 +11,8 @@
 #include "credentials.h"
 #include <HardwareSerial.h>
 
-#define ARDUINO_MAIN_CORE 0
-#define ARDUINO_TASK_CORE 1
+#define MAIN_CORE 1
+#define TASK_CORE 0
 
 //======================================================================//
 // Global Variables
@@ -84,27 +84,35 @@ void loop()
 // Mqtt & Wifi
 
 void setupMqtt() {
+  Serial.println("Setup: Initializing connection to MQTT broker");
   mqtt.setServer(MQTT_SERVER, 1883);
   mqtt.setCallback(callback);
+  while (!mqtt.connect(MQTT_CLIENTNAME, MQTT_USERNAME, MQTT_KEY));
+  Serial.println("Setup: MQTT broker connected!");
+
+  Serial.print("Setup: Executing on core ");
+  Serial.println(xPortGetCoreID());
+  Serial.print("Setup: priority = ");
+  Serial.println(uxTaskPriorityGet(NULL));
 
   xTaskCreatePinnedToCore(
     TaskHeartbeatTestPublish
     ,  "TaskHeartbeatTestPublish"   // A name just for humans
-    ,  2048  // This stack size can be checked & adjusted by reading the Stack Highwater
+    ,  10000  // This stack size can be checked & adjusted by reading the Stack Highwater
     ,  NULL
-    ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
+    ,  1  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
     ,  NULL
-    ,  ARDUINO_TASK_CORE
+    ,  TASK_CORE
   );  
 
   // xTaskCreatePinnedToCore(
   //   TaskTempPublish
   //   ,  "TaskTempPublish"   // A name just for humans
-  //   ,  2048  // This stack size can be checked & adjusted by reading the Stack Highwater
+  //   ,  10000  // This stack size can be checked & adjusted by reading the Stack Highwater
   //   ,  NULL
   //   ,  0  // Priority, with 3 (configMAX_PRIORITIES - 1) being the highest, and 0 being the lowest.
   //   ,  NULL
-  //   ,  ARDUINO_TASK_CORE
+  //   ,  TASK_CORE
   // );  
 }
 

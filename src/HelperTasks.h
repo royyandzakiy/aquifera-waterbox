@@ -4,6 +4,9 @@ void TaskHeartbeatTestPublish(void *pvParameters);
 
 void TaskHeartbeatTestPublish(void *pvParameters) {
   // test publish
+  Serial.println("TaskHeartbeatTestPublish: Initialized");
+  Serial.print("TaskHeartbeatTestPublish: Executing on core ");
+  Serial.println(xPortGetCoreID());
   (void) pvParameters;
   int count = 0;
   
@@ -56,6 +59,11 @@ void commandArduino(String command, String topic, String _message) {
  char* message;
  _message.toCharArray(message, _message.length());
   if (command == "pub") {
+    Serial.print("Publish to [waterbox/W0001/");
+    Serial.print(topic);
+    Serial.print("]:\"");
+    Serial.print(_message);
+    Serial.println("\"");
     if (topic == "flow_sensor") {
       mqtt.publish(flow_sensor_topic, message);
     } else if (topic == "temp_sensor") {
@@ -65,19 +73,19 @@ void commandArduino(String command, String topic, String _message) {
     } else {
       Serial.println("topic error");
     } 
-  } else if ("set_time") {
+  } else if(command == "set_time") {
       Serial.println(command);
-  } else if ("get_time") {
+  } else if(command == "get_time") {
       Serial.println(command);
-  } else if ("set_time_rtc") {
+  } else if(command == "set_time_rtc") {
       Serial.println(command);
-  } else if ("get_time_rtc") {
+  } else if(command == "get_time_rtc") {
       Serial.println(command);
-  } else if ("get_info_waterbox") {
+  } else if(command == "get_info_waterbox") {
       Serial.println(command);
-  } else if ("get_debit_count") {
+  } else if(command == "get_debit_count") {
       Serial.println(command);
-  } else if ("get_debit_data") {
+  } else if(command == "get_debit_data") {
       Serial.println(command);
   } else {
       Serial.println("nothing todo...");

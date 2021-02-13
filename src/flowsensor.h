@@ -108,6 +108,7 @@ void reportdebitCountTemporary() {
 void publishMqtt(String topic, String message) {
     String topicFull = "waterbox/W0001/" + topic;
     Serial.println("pub:" + topicFull + ":" + message);
+    // add code to actually publish to server
 }
 
 void resetDebitFrequency() {
