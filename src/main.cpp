@@ -17,7 +17,7 @@
 //======================================================================//
 // Headers
 
-#include "serial.h"
+#include "serial.h" 
 #include "flowsensor.h"
 #include "sim.h"
 // #include "alarms.h" // *** THIS FILE IS NOT YET USED ***
@@ -50,6 +50,5 @@ void setup()
 void loop() 
 {
   echo();
-  listenEsp();
   Alarm.delay(1); // wait one second between clock display. MUST BE TURNED ON TO USE Alarm::timerRepeater
 }

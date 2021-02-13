@@ -3,15 +3,11 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
-SoftwareSerial EspSerial(5, 6);
-
 //======================================================================//
 // Prototypes
 void setupSerial();
 void echo();
-void listenEsp();
-void sendEsp(String);
-void processListenEsp(String);
+void processCommand(String);
 
 //======================================================================//
 // Functions
@@ -20,22 +16,11 @@ void echo() {
   if(Serial.available()) {
     String str = Serial.readStringUntil('\n');
     Serial.println(str);
-    sendEsp(str);
     delay(10);
   }
 }
 
-void listenEsp() {
-  if(EspSerial.available()) {
-    String str = EspSerial.readStringUntil('\n');
-    Serial.println(str);
-
-    processListenEsp(str);
-    delay(10);
-  }
-}
-
-void processListenEsp(String str) {
+void processCommand(String str) {
   if (str=="set_time") {
     // set time of internal Alarm.time
     Serial.println("set_time command engegaed");
@@ -60,13 +45,8 @@ void processListenEsp(String str) {
   }
 }
 
-void sendEsp(String str) {
-  EspSerial.println(str);
-}
-
 void setupSerial() {
   Serial.begin(9600);
-  EspSerial.begin(9600);
 
   while (!Serial);
   Serial.println("Setup: Initialize Serial...");
